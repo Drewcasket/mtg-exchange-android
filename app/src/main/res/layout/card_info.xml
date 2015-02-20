@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/card_picture"
+        android:src="@drawable/monastery_mentor_small"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_description"
+        android:src="@drawable/monmen"
+        android:layout_toRightOf="@+id/card_picture"
+        android:layout_toEndOf="@+id/card_picture"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/watch_list_button"
+        android:text="Add To Watch List"
+        android:layout_below="@+id/card_description"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/remove_collection_button"
+        android:text="Remove From Collection"
+        android:layout_below="@+id/watch_list_button"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/remove_watch_list_button"
+        android:text="Remove From Watch List"
+        android:layout_below="@+id/card_description"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_collection_button"
+        android:text="Add To Collection"
+        android:layout_below="@+id/watch_list_button"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buy_button"
+        android:text="Buy This Card"
+        android:layout_below="@+id/add_collection_button"
+        android:layout_alignLeft="@+id/add_collection_button"
+        android:layout_alignStart="@+id/add_collection_button" />
+
+</RelativeLayout>

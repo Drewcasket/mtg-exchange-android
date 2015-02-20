@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MTG Exchange</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="card_name">card_name</string>
+
+    <string-array name="cardNames">
+        <item>Alesha, Who Smiles at Death</item>
+        <item>Arcbond</item>
+        <item>Archfiend of Depravity</item>
+        <item>Atarka, World Render</item>
+        <item>Citadel Siege</item>
+        <item>Crucible of the Spirit Dragon</item>
+        <item>Crux of Fate</item>
+        <item>Daghatar the Adamant</item>
+        <item>Dragonscale General</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+        <item>Dromoka, the Eternal</item>
+
+    </string-array>
+
+    <string-array name="cardValues">
+        <item>1.55</item>
+        <item>.49</item>
+        <item>.69</item>
+        <item>.85</item>
+        <item>.59</item>
+        <item>.49</item>
+        <item>5.55</item>
+        <item>.49</item>
+        <item>.49</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+        <item>1.05</item>
+    </string-array>
+
+    <string-array name="valueChanges">
+        <item>+.99</item>
+        <item>+.49</item>
+        <item>-.89</item>
+        <item>+.26</item>
+        <item>-.34</item>
+        <item>+.15</item>
+        <item>+.27</item>
+        <item>-.04</item>
+        <item>-.12</item>
+        <item>+.85</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+        <item>-.12</item>
+    </string-array>
+
+</resources>
