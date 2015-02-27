@@ -23,8 +23,11 @@ import android.widget.Toast;
  */
 public class CardInfo extends Activity implements View.OnClickListener {
 
-    TinyDB tinydb = new TinyDB(this);
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ListViewCard CardInfo = getIntent().getParcelableExtra("CardObject");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +43,10 @@ public class CardInfo extends Activity implements View.OnClickListener {
 
         add_watchlist.setOnClickListener(this);
         remove_watchlist.setOnClickListener(this);
+        remove_watchlist.setVisibility(View.INVISIBLE);
         add_collection.setOnClickListener(this);
         remove_collection.setOnClickListener(this);
+        remove_collection.setVisibility(View.INVISIBLE);
         buy.setOnClickListener(this);
 
 //        if (partOfCollection()) {

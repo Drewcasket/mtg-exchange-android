@@ -14,15 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by Drew on 2/4/15.
  */
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener{
 
     ListView list;
-    String[] cardNames;
-    String[] cardValues;
-    String[] valueChanges;
+    List<ListViewCard> drew = new LinkedList<ListViewCard>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         setContentView(R.layout.activity_main);
         list= (ListView) findViewById(R.id.listView);
 
-        Resources res=getResources();
-        cardNames=res.getStringArray(R.array.cardNames);
-        cardValues=res.getStringArray(R.array.cardValues);
-        valueChanges=res.getStringArray(R.array.valueChanges);
 
+        ListViewCard dragonBlood = new ListViewCard();
+        dragonBlood.setCardName("DragonBlood");
+        dragonBlood.setCardValue(29.32);
+        dragonBlood.setValueChange(.45);
+        dragonBlood.setCardID(13L);
+        dragonBlood.setManaCost("2BB");
 
-        ListAdapter adapter=new ListAdapter(this, cardNames, cardValues, valueChanges);
+        for (int x=1; x <= 10;x++)
+        {
+        drew.add(dragonBlood);
+        }
+
+// on first load, give empty array, and subsequent loads, use cached data
+        //back ground image
+        ListAdapter adapter=new ListAdapter(this, drew);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
 
@@ -46,24 +56,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent iCardInfo = new Intent(this, CardInfo.class);
+        iCardInfo.putExtra("CardObject", drew.get(position));
+        // get card id from card object and pass through to next screens webservice call
 //        iCompany.putExtra(ComicReleaseListActivity.COMPANY_LOGO, images[position]);
 //        iCompany.putExtra(ComicReleaseListActivity.COMPANY_TITLE, publisherTitles[position]);
         startActivity(iCardInfo);
     }
 }
 
-class ListAdapter extends ArrayAdapter<String>
+class ListAdapter extends ArrayAdapter<ListViewCard>
 {
-    Context context;
-    String[] cardNameArray;
-    String[] cardValueArray;
-    String[] valueChangeArray;
-    ListAdapter(Context c, String[] cardNames, String[] cardValues, String[] valueChanges) {
-        super(c, R.layout.single_row,R.id.card_name,cardNames);
-        this.context=c;
-        this.cardNameArray=cardNames;
-        this.cardValueArray=cardValues;
-        this.valueChangeArray=valueChanges;
+    ListAdapter(Context c, List<ListViewCard> cards) {
+        super(c, R.layout.single_row, cards);
     }
 
     class ViewHolder {
@@ -74,6 +78,7 @@ class ListAdapter extends ArrayAdapter<String>
             cName= (TextView) v.findViewById(R.id.card_name);
             cValue= (TextView) v.findViewById(R.id.card_value);
             vChange= (TextView) v.findViewById(R.id.value_change);
+            //background image
         }
     }
     @Override
@@ -81,7 +86,7 @@ class ListAdapter extends ArrayAdapter<String>
         View row=convertView;
         ViewHolder holder=null;
         if (row==null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.single_row, parent, false);
             holder=new ViewHolder(row);
             row.setTag(holder);
@@ -91,10 +96,10 @@ class ListAdapter extends ArrayAdapter<String>
         }
 
 
-        holder.cName.setText(cardNameArray[position]);
-        holder.cValue.setText(cardValueArray[position]);
-        holder.vChange.setText(valueChangeArray[position]);
-
+        holder.cName.setText(getItem(position).getCardName());
+        holder.cValue.setText(String.valueOf(getItem(position).getCardValue()));
+        holder.vChange.setText(String.valueOf(getItem(position).getValueChange()));
+//background image
         return row;
     }
 }
