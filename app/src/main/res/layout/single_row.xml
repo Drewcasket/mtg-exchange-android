@@ -1,34 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingRight="12dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="2.5dp"
+    android:paddingBottom="2.5dp"
+    android:background="@color/light_grey">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Name"
-        android:paddingRight="70dp"
+    <View
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:id="@+id/card_color"
+        android:background="@color/red">
+    </View>
 
-        android:id="@+id/card_name"/>
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Card Value"
-        android:id="@+id/card_value"
-        android:paddingLeft="70dp"
-        android:gravity="right"
-        android:paddingRight="100dp"
+        android:id="@+id/card_background"
+        android:background="@color/medium_grey">
 
-       />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Value Change"
-        android:id="@+id/value_change"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alesha, Who Smiles at Death"
+            android:id="@+id/card_name"
+            android:textColor="@color/dark_grey"
+/>
 
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="card value"
+            android:id="@+id/card_value"
+            android:layout_below="@id/card_name"
+            android:background="@color/light_grey"
+            android:textColor="@color/dark_grey"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="value change"
+            android:id="@+id/value_change"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/card_value"
+            android:layout_marginRight="12dp"
+            android:background="@color/light_grey"
+            android:textColor="@color/dark_green"
+
+/>
 
 
-</RelativeLayout>
+
+
+
+    </RelativeLayout>
+</LinearLayout>
