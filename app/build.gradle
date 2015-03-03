@@ -19,14 +19,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 def AAVersion = '3.2'
 
-dependencies {
-    apt "org.androidannotations:androidannotations:$AAVersion"
-    compile "org.androidannotations:androidannotations-api:$AAVersion"
-}
 
 apt {
     arguments {
-       
+
 
         resourcePackageName 'com.detroitlabs.mtgexchange'
     }
@@ -58,6 +54,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile "com.android.support:support-v4:18.0.+"
     compile "com.android.support:support-annotations:20.0.0"
 }
