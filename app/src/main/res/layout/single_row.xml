@@ -2,61 +2,88 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingRight="12dp"
     android:paddingLeft="12dp"
     android:paddingTop="2.5dp"
     android:paddingBottom="2.5dp"
-    android:background="@color/light_grey">
+    android:background="@color/background_grey">
 
     <View
         android:layout_width="10dp"
         android:layout_height="match_parent"
         android:id="@+id/card_color"
-        android:background="@color/red">
+        android:background="@color/card_color_red">
     </View>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:id="@+id/card_background"
-        android:background="@color/medium_grey">
+        android:background="@drawable/bg_artifact">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alesha, Who Smiles at Death"
             android:id="@+id/card_name"
-            android:textColor="@color/dark_grey"
-/>
+            android:textColor="@color/card_name_grey"
+        />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="card value"
             android:id="@+id/card_value"
+            android:padding="2.5dp"
+            android:gravity="center_horizontal"
             android:layout_below="@id/card_name"
-            android:background="@color/light_grey"
-            android:textColor="@color/dark_grey"
+            android:background="@drawable/drawable_card_value_background"
+            android:textColor="@color/value_text_grey"
+        />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:id="@+id/valueChangeContainer"
+            android:layout_alignBottom="@id/card_value"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/drawable_value_change_up_background">
 
-            />
+            <detroitlabs.mtgexchange.TriangleView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:id="@+id/value_arrow_up"
+                android:rotation="270"
+                android:gravity="center_horizontal"
 
-        <TextView
+                android:layout_gravity="center_vertical"
+                />
+
+            <detroitlabs.mtgexchange.TriangleView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:id="@+id/value_arrow_down"
+                android:rotation="90"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="value change"
             android:id="@+id/value_change"
+            android:padding="2.5dp"
+            android:gravity="center_horizontal"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/card_value"
             android:layout_marginRight="12dp"
-            android:background="@color/light_grey"
-            android:textColor="@color/dark_green"
+            android:textColor="@color/value_change_text_green"
+            />
 
-/>
-
-
-
+        </LinearLayout>
 
 
     </RelativeLayout>

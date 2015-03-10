@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_grey">#BAB3B2</color>
-    <color name="medium_grey">#A7A1A0</color>
-    <color name="dark_grey">#6F6B6A</color>
-    <color name="red">#FD5139</color>
-    <color name="dark_green">#48713A</color>
+    <color name="background_grey">#EEEEEF</color>
+    <color name="actionbar_tab_grey">#EDEDED</color>
+    <color name="card_name_grey">#575A5D</color>
+    <color name="value_background_grey">#DEDEDE</color>
+    <color name="value_text_grey">#585B5E</color>
+    <color name="value_change_background_green">#C1D5BD</color>
+    <color name="value_change_background_red">#D3BBBB</color>
+    <color name="value_change_text_green">#106D11</color>
+    <color name="value_change_text_red">#660E10</color>
+    <color name="value_change_arrow_green">#0D700F</color>
+    <color name="value_change_arrow_red">#700206</color>
+    <color name="card_color_artifact">#8B97A3</color>
+    <color name="card_color_red">#FD5139</color>
+    <color name="card_color_green">#5C8462</color>
+    <color name="card_color_white">#E6E1CE</color>
+    <color name="card_color_blue">#4EAED8</color>
+    <color name="card_color_black">#0B0B0B</color>
+    <color name="card_color_gold">#C7B164</color>
+    <color name="white_line_fever">#ffffff</color>
 </resources>

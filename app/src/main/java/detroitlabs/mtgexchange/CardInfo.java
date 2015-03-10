@@ -3,18 +3,11 @@ package detroitlabs.mtgexchange;
 import android.app.Activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.AdapterView;
-
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -26,7 +19,7 @@ public class CardInfo extends Activity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-        ListViewCard CardInfo = getIntent().getParcelableExtra("CardObject");
+        Card CardInfo = getIntent().getParcelableExtra("CardObject");
     }
 
     @Override
