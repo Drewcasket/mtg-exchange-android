@@ -1,12 +1,17 @@
 package detroitlabs.mtgexchange;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.lang.reflect.Array;
 
 /**
  * Created by Drew on 2/24/15.
  */
-public class ListViewCard implements Parcelable {
+public class Card implements Parcelable {
+
+    private String[] cardColor;
     private String cardName;
     private Double cardValue;
     private Double valueChange;
@@ -54,6 +59,12 @@ public class ListViewCard implements Parcelable {
         this.cardValue = cardValue;
     }
 
+    public String[] getCardColor() { return cardColor; }
+
+    public void setCardColor(String[] cardColor) {
+        this.cardColor = cardColor;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,10 +80,10 @@ public class ListViewCard implements Parcelable {
         dest.writeString(this.pictureURL);
     }
 
-    public ListViewCard() {
+    public Card() {
     }
 
-    private ListViewCard(Parcel in) {
+    private Card(Parcel in) {
         this.cardName = in.readString();
         this.cardValue = (Double) in.readValue(Double.class.getClassLoader());
         this.valueChange = (Double) in.readValue(Double.class.getClassLoader());
@@ -81,13 +92,14 @@ public class ListViewCard implements Parcelable {
         this.pictureURL = in.readString();
     }
 
-    public static final Parcelable.Creator<ListViewCard> CREATOR = new Parcelable.Creator<ListViewCard>() {
-        public ListViewCard createFromParcel(Parcel source) {
-            return new ListViewCard(source);
+    public static final Parcelable.Creator<Card> CREATOR = new Parcelable.Creator<Card>() {
+        public Card createFromParcel(Parcel source) {
+            return new Card(source);
         }
 
-        public ListViewCard[] newArray(int size) {
-            return new ListViewCard[size];
+        public Card[] newArray(int size) {
+            return new Card[size];
         }
     };
+
 }
