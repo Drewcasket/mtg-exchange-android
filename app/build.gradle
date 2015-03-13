@@ -5,7 +5,8 @@ def AAVersion = '3.2'
 
 apt {
     arguments {
-        resourcePackageName 'com.detroitlabs.mtgexchange'
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        resourcePackageName 'detroitlabs.mtgexchange'
     }
 }
 
@@ -37,4 +38,5 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile "com.android.support:support-v4:20.0.+"
     compile "com.android.support:support-annotations:20.0.0"
+    compile "com.squareup.retrofit:retrofit:1.9.0"
 }
