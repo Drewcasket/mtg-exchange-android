@@ -1,29 +1,10 @@
 apply plugin: 'com.android.application'
-
-buildscript {
-    repositories{
-        mavenCentral()
-    }
-    dependencies{
-        classpath 'com.android.tools.build:gradle:1.0.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-    }
-}
-
-repositories{
-    mavenCentral()
-    mavenLocal()
-}
-
-apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-def AAVersion = '3.2'
 
+def AAVersion = '3.2'
 
 apt {
     arguments {
-
-
         resourcePackageName 'com.detroitlabs.mtgexchange'
     }
 }
@@ -38,15 +19,13 @@ android {
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
-
-
     }
     lintOptions {
         abortOnError false
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,6 +35,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-    compile "com.android.support:support-v4:18.0.+"
+    compile "com.android.support:support-v4:20.0.+"
     compile "com.android.support:support-annotations:20.0.0"
 }
