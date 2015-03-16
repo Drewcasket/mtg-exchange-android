@@ -29,6 +29,9 @@
             android:text="Alesha, Who Smiles at Death"
             android:id="@+id/card_name"
             android:textColor="@color/card_name_grey"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
         />
 
         <TextView
@@ -41,7 +44,8 @@
             android:layout_below="@id/card_name"
             android:background="@drawable/drawable_card_value_background"
             android:textColor="@color/value_text_grey"
-        />
+            android:layout_marginLeft="15dp"
+            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,6 +54,7 @@
             android:id="@+id/valueChangeContainer"
             android:layout_alignBottom="@id/card_value"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
             android:background="@drawable/drawable_value_change_up_background">
 
             <detroitlabs.mtgexchange.TriangleView
@@ -58,7 +63,6 @@
                 android:id="@+id/value_arrow_up"
                 android:rotation="270"
                 android:gravity="center_horizontal"
-
                 android:layout_gravity="center_vertical"
                 />
 
