@@ -1,6 +1,7 @@
 package detroitlabs.mtgexchange;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +38,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+
         list= (ListView) findViewById(R.id.listView);
+
 
 
         Card dragonBlood = new Card();
@@ -67,6 +78,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         card.add(AleshaWhoSmilesAtDeath);
         card.add(BrainnRefractor);
         }
+
+        View customBar = mInflater.inflate(R.layout.action_bar, null);
+        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+
+        title.setText("MTG Exchange");
+        filter.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Filter Button Clicked!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mActionBar.setCustomView(customBar);
+        mActionBar.setDisplayShowCustomEnabled(true);
 
 // on first load, give empty array, and subsequent loads, use cached data
         //back ground image
@@ -136,7 +164,7 @@ class ListAdapter extends ArrayAdapter<Card>
         int cardBackground = getCardBackground(cardColor);
         double valueChange = getItem(position).getValueChange();
         holder.cName.setText(getItem(position).getCardName());
-        holder.cValue.setText(String.valueOf(getItem(position).getCardValue()));
+        holder.cValue.setText("$" + (String.valueOf(getItem(position).getCardValue())));
         holder.vChange.setText(String.valueOf(getItem(position).getValueChange()));
         holder.vChange.setTextColor(getValueChangeTextColor(valueChange));
         holder.vChangeContainer.setBackgroundResource(getValueChangeColor(valueChange));
@@ -193,7 +221,7 @@ class ListAdapter extends ArrayAdapter<Card>
 
     public int getCardBackground(String[] cardColor) {
 
-        int cardBackground = R.drawable.bg_black;
+        int cardBackground = R.drawable.bg_white;
 
         if (cardColor.length > 1) {
             cardBackground = R.drawable.bg_gold;

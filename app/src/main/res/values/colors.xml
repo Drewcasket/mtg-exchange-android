@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="actionbar_text">#EF895E</color>
     <color name="background_grey">#EEEEEF</color>
     <color name="actionbar_tab_grey">#EDEDED</color>
     <color name="card_name_grey">#575A5D</color>
