@@ -48,35 +48,51 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 
 
-        Card dragonBlood = new Card();
-        dragonBlood.setCardName("DragonBlood");
-        dragonBlood.setCardValue(2329.32);
-        dragonBlood.setValueChange(-.45);
-        dragonBlood.setCardID(13L);
-        dragonBlood.setManaCost("2BB");
-        dragonBlood.setCardColor(new String[] {"Black"});
+        Card ArchfiendOfDepravity = new Card();
+        ArchfiendOfDepravity.setCardName("Archfiend of Depravity");
+        ArchfiendOfDepravity.setCardValue(1.32);
+        ArchfiendOfDepravity.setValueChange(-.45);
+        ArchfiendOfDepravity.setCardID(13L);
+        ArchfiendOfDepravity.setManaCost("3BB");
+        ArchfiendOfDepravity.setCardColor(new String[] {"Black"});
+        ArchfiendOfDepravity.setPictureURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391795.jpg");
+
+        Card AtarkaWorldRender = new Card();
+        AtarkaWorldRender.setCardName("Atarka, World Render");
+        AtarkaWorldRender.setCardValue(.06);
+        AtarkaWorldRender.setValueChange(.06);
+        AtarkaWorldRender.setCardID(49L);
+        AtarkaWorldRender.setManaCost("3RR");
+        AtarkaWorldRender.setCardColor(new String[] {"Red", "Green"});
+        AtarkaWorldRender.setPictureURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391796.jpg");
 
         Card AleshaWhoSmilesAtDeath = new Card();
         AleshaWhoSmilesAtDeath.setCardName("Alesh, Who Smiles at Death");
         AleshaWhoSmilesAtDeath.setCardValue(8.32);
-        AleshaWhoSmilesAtDeath.setValueChange(1.45);
+        AleshaWhoSmilesAtDeath.setValueChange(1.23);
         AleshaWhoSmilesAtDeath.setCardID(49L);
         AleshaWhoSmilesAtDeath.setManaCost("3RR");
         AleshaWhoSmilesAtDeath.setCardColor(new String[] {"Red"});
+        AleshaWhoSmilesAtDeath.setPictureURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391787.jpg");
 
-        Card BrainnRefractor = new Card();
-        BrainnRefractor.setCardName("Brain Refractor");
-        BrainnRefractor.setCardValue(8.32);
-        BrainnRefractor.setValueChange(1.45);
-        BrainnRefractor.setCardID(49L);
-        BrainnRefractor.setManaCost("3RR");
-        BrainnRefractor.setCardColor(new String[] {"Red", "Green"});
+        Card ScionOfTheUrDragon = new Card();
+        ScionOfTheUrDragon.setCardName("Scion of the Ur-Dragon");
+        ScionOfTheUrDragon.setCardValue(49.32);
+        ScionOfTheUrDragon.setValueChange(-1.22);
+        ScionOfTheUrDragon.setCardID(13L);
+        ScionOfTheUrDragon.setManaCost("3BB");
+        ScionOfTheUrDragon.setCardColor(new String[] {"Black"});
+        ScionOfTheUrDragon.setPictureURL("http://www.cardshark.com/images/Magic/Time%20Spiral/116745.jpg");
+
+
 
         for (int x=1; x <= 10;x++)
         {
-        card.add(dragonBlood);
+        card.add(ArchfiendOfDepravity);
+        card.add(AtarkaWorldRender);
         card.add(AleshaWhoSmilesAtDeath);
-        card.add(BrainnRefractor);
+        card.add(ScionOfTheUrDragon);
+
         }
 
         View customBar = mInflater.inflate(R.layout.action_bar, null);
@@ -110,8 +126,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Intent iCardInfo = new Intent(this, CardInfo.class);
         iCardInfo.putExtra("CardObject", card.get(position));
         // get card id from card object and pass through to next screens webservice call
-//        iCompany.putExtra(ComicReleaseListActivity.COMPANY_LOGO, images[position]);
-//        iCompany.putExtra(ComicReleaseListActivity.COMPANY_TITLE, publisherTitles[position]);
         startActivity(iCardInfo);
     }
 }
@@ -130,7 +144,6 @@ class ListAdapter extends ArrayAdapter<Card>
         TriangleView vArrowUp;
         TriangleView vArrowDown;
         View cColor;
-        View vArrow;
         RelativeLayout cBackground;
 
         ViewHolder(View v) {

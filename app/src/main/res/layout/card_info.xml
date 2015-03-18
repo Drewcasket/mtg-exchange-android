@@ -4,58 +4,72 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="350dp"
         android:layout_margin="10dp"
-        android:id="@+id/card_picture"
-        android:src="@drawable/bg_black"/>
+        android:layout_centerHorizontal="true"
+        android:id="@+id/card_picture"/>
 
+    <TextView
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:text="card value"
+        android:id="@+id/card_value"
+        android:padding="2.5dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/drawable_card_value_background"
+        android:textColor="@color/value_text_grey"
+        android:layout_below="@+id/card_picture"
+        android:layout_alignLeft="@+id/card_picture"
+        android:layout_alignStart="@+id/card_picture" />
 
-    <ImageView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/card_description"
-        android:src="@drawable/bg_blue"
-        android:layout_toRightOf="@+id/card_picture"
-        android:layout_toEndOf="@+id/card_picture"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:id="@+id/valueChangeContainer"
+        android:layout_alignBottom="@id/card_value"
+        android:layout_alignRight="@id/card_picture"
+        android:background="@drawable/drawable_value_change_up_background">
 
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/watch_list_button"
-        android:text="Add To Watch List"
-        android:layout_below="@+id/card_description"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/remove_collection_button"
-        android:text="Remove From Collection"
-        android:layout_below="@+id/watch_list_button"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/remove_watch_list_button"
-        android:text="Remove From Watch List"
-        android:layout_below="@+id/card_description"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_collection_button"
-        android:text="Add To Collection"
-        android:layout_below="@+id/watch_list_button"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/buy_button"
-        android:text="Buy This Card"
-        android:layout_below="@+id/add_collection_button"
-        android:layout_alignLeft="@+id/add_collection_button"
-        android:layout_alignStart="@+id/add_collection_button" />
+        <detroitlabs.mtgexchange.TriangleView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:id="@+id/value_arrow_up"
+            android:rotation="270"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
+            />
+
+        <detroitlabs.mtgexchange.TriangleView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:id="@+id/value_arrow_down"
+            android:rotation="90"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="value change"
+            android:id="@+id/value_change"
+            android:padding="2.5dp"
+            android:gravity="center_horizontal"
+            android:layout_alignTop="@id/card_value"
+            android:textColor="@color/value_change_text_green"
+            />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
 
 </RelativeLayout>
