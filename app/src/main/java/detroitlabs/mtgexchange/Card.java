@@ -27,6 +27,10 @@ public class Card implements Parcelable {
         this.cardName = cardName;
     }
 
+    public String getPictureURL() { return pictureURL; }
+
+    public void setPictureURL(String pictureURL) { this.pictureURL = pictureURL; }
+
     public Long getCardID() {
         return cardID;
     }

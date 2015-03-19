@@ -1,14 +1,31 @@
 package detroitlabs.mtgexchange;
 
+import android.app.ActionBar;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -20,6 +37,38 @@ public class CardInfo extends Activity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
         Card CardInfo = getIntent().getParcelableExtra("CardObject");
+
+        TextView cValue;
+        TextView vChange;
+        TriangleView vArrowUp;
+        TriangleView vArrowDown;
+        View vChangeContainer;
+        double valueChange = CardInfo.getValueChange();
+
+
+        cValue = (TextView) findViewById(R.id.card_value);
+        vChange= (TextView) findViewById(R.id.value_change);
+        vChangeContainer =  findViewById(R.id.valueChangeContainer);
+        vArrowUp= (TriangleView) findViewById(R.id.value_arrow_up);
+        vArrowDown= (TriangleView) findViewById(R.id.value_arrow_down);
+
+        new DownloadImageTask((ImageView) findViewById(R.id.card_picture))
+                .execute(CardInfo.getPictureURL());
+        cValue.setText("$" + (String.valueOf(CardInfo.getCardValue())));
+        vChange.setText(String.valueOf(CardInfo.getValueChange()));
+        vChange.setTextColor(getValueChangeTextColor(CardInfo.getValueChange()));
+        vChangeContainer.setBackgroundResource(getValueChangeColor(valueChange));
+        if (valueChange<0) {
+            vArrowDown.setVisibility(View.VISIBLE);
+            vArrowUp.setVisibility(View.GONE);
+            vArrowDown.setArrowGreen(false);
+        }
+        else {
+            vArrowDown.setVisibility(View.GONE);
+            vArrowUp.setVisibility(View.VISIBLE);
+            vArrowDown.setArrowGreen(true);
+        }
+
     }
 
     @Override
@@ -27,58 +76,66 @@ public class CardInfo extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.card_info);
 
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
 
-        Button add_watchlist = (Button) findViewById(R.id.watch_list_button);
-        Button remove_watchlist = (Button) findViewById(R.id.remove_watch_list_button);
-        Button add_collection = (Button) findViewById(R.id.add_collection_button);
-        Button remove_collection = (Button) findViewById(R.id.remove_collection_button);
-        Button buy = (Button) findViewById(R.id.buy_button);
+        View customBar = mInflater.inflate(R.layout.action_bar, null);
+        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
 
-        add_watchlist.setOnClickListener(this);
-        remove_watchlist.setOnClickListener(this);
-        remove_watchlist.setVisibility(View.INVISIBLE);
-        add_collection.setOnClickListener(this);
-        remove_collection.setOnClickListener(this);
-        remove_collection.setVisibility(View.INVISIBLE);
-        buy.setOnClickListener(this);
+        title.setText("MTG Exchange");
+        filter.setOnClickListener(new View.OnClickListener() {
 
-//        if (partOfCollection()) {
-//            add_collection.setVisibility(View.INVISIBLE);
-//            remove_collection.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            add_collection.setVisibility(View.VISIBLE);
-//            remove_collection.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if (partOfWatchList()) {
-//            add_watchlist.setVisibility(View.INVISIBLE);
-//            remove_watchlist.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            add_watchlist.setVisibility(View.VISIBLE);
-//            remove_watchlist.setVisibility(View.INVISIBLE);
-//
-//        }
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Filter Button Clicked!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mActionBar.setCustomView(customBar);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
+
     }
+
+    public int getValueChangeColor(double valueChange) {
+        return valueChange<0?R.drawable.drawable_value_change_down_background:R.drawable.drawable_value_change_up_background;
+    }
+
+    public int getValueChangeTextColor(double valueChange) {
+        return getResources().getColor(valueChange < 0 ? R.color.value_change_text_red : R.color.value_change_text_green);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+   }
 
     @Override
     public void onClick(View v) {
-
-
-        switch (v.getId()) {
-            case R.id.watch_list_button:
-                Toast.makeText(this, "Added to watch list", Toast.LENGTH_SHORT).show();
-//                tinydb.putList("monastery_mentor", watchList);
-                break;
-            case R.id.add_collection_button:
-                Toast.makeText(this, "Added to collection", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.buy_button:
-                Intent iBuy = new Intent(this, MainActivity.class);
-                startActivity(iBuy);
-                break;
-        }
 
     }
 }
