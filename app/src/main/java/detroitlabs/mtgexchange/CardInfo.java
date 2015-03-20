@@ -43,7 +43,7 @@ public class CardInfo extends Activity implements View.OnClickListener {
         TriangleView vArrowUp;
         TriangleView vArrowDown;
         View vChangeContainer;
-        double valueChange = CardInfo.getValueChange();
+        double valueChange = CardInfo.getChangeInPrice();
 
 
         cValue = (TextView) findViewById(R.id.card_value);
@@ -52,11 +52,11 @@ public class CardInfo extends Activity implements View.OnClickListener {
         vArrowUp= (TriangleView) findViewById(R.id.value_arrow_up);
         vArrowDown= (TriangleView) findViewById(R.id.value_arrow_down);
 
-        new DownloadImageTask((ImageView) findViewById(R.id.card_picture))
-                .execute(CardInfo.getPictureURL());
-        cValue.setText("$" + (String.valueOf(CardInfo.getCardValue())));
-        vChange.setText(String.valueOf(CardInfo.getValueChange()));
-        vChange.setTextColor(getValueChangeTextColor(CardInfo.getValueChange()));
+//        new DownloadImageTask((ImageView) findViewById(R.id.card_picture))
+//                .execute(CardInfo.getImageURL());
+        cValue.setText("$" + (String.valueOf(CardInfo.getCurrentPrice())));
+        vChange.setText(String.valueOf(CardInfo.getChangeInPrice()));
+        vChange.setTextColor(getValueChangeTextColor(CardInfo.getChangeInPrice()));
         vChangeContainer.setBackgroundResource(getValueChangeColor(valueChange));
         if (valueChange<0) {
             vArrowDown.setVisibility(View.VISIBLE);
@@ -109,30 +109,30 @@ public class CardInfo extends Activity implements View.OnClickListener {
         return getResources().getColor(valueChange < 0 ? R.color.value_change_text_red : R.color.value_change_text_green);
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-   }
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+//        }
+//
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//   }
 
     @Override
     public void onClick(View v) {
