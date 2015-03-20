@@ -43,7 +43,7 @@ public class CardInfo extends Activity implements View.OnClickListener {
         TriangleView vArrowUp;
         TriangleView vArrowDown;
         View vChangeContainer;
-        double valueChange = CardInfo.getValueChange();
+        double valueChange = CardInfo.getChangeInPrice();
 
 
         cValue = (TextView) findViewById(R.id.card_value);
@@ -53,10 +53,10 @@ public class CardInfo extends Activity implements View.OnClickListener {
         vArrowDown= (TriangleView) findViewById(R.id.value_arrow_down);
 
         new DownloadImageTask((ImageView) findViewById(R.id.card_picture))
-                .execute(CardInfo.getPictureURL());
-        cValue.setText("$" + (String.valueOf(CardInfo.getCardValue())));
-        vChange.setText(String.valueOf(CardInfo.getValueChange()));
-        vChange.setTextColor(getValueChangeTextColor(CardInfo.getValueChange()));
+                .execute(CardInfo.getImageURL());
+        cValue.setText("$" + (String.valueOf(CardInfo.getCurrentPrice())));
+        vChange.setText(String.valueOf(CardInfo.getChangeInPrice()));
+        vChange.setTextColor(getValueChangeTextColor(CardInfo.getChangeInPrice()));
         vChangeContainer.setBackgroundResource(getValueChangeColor(valueChange));
         if (valueChange<0) {
             vArrowDown.setVisibility(View.VISIBLE);
