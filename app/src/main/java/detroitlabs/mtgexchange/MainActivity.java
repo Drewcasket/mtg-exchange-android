@@ -261,17 +261,17 @@ class ListAdapter extends ArrayAdapter<Card>
             if (cardColor.size() > 1) {
                 cardBackground = R.drawable.bg_gold;
 
-            } else if (cardColor.equals(new String[]{"White"})) {
+            } else if (cardColor.contains("White")) {
                 cardBackground = R.drawable.bg_white;
-            } else if (cardColor.equals(new String[]{"Black"})) {
+            } else if (cardColor.contains("Black")) {
                 cardBackground = R.drawable.bg_black;
-            } else if (cardColor.equals(new String[]{"Green"})) {
+            } else if (cardColor.contains("Green")) {
                 cardBackground = R.drawable.bg_green;
-            } else if (cardColor.equals(new String[]{"Blue"})) {
+            } else if (cardColor.contains("Blue")) {
                 cardBackground = R.drawable.bg_blue;
-            } else if (cardColor.equals(new String[]{"Red"})) {
+            } else if (cardColor.contains("Red")) {
                 cardBackground = R.drawable.bg_red;
-            } else if (cardColor.equals(new String[]{"Artifact"})) {
+            } else if (cardColor.contains("Artifact")) {
                 cardBackground = R.drawable.bg_artifact;
             }
             return cardBackground;
