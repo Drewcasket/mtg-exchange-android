@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -38,22 +39,23 @@ import retrofit.client.Response;
 @EActivity
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener, Callback<CardsResponse>{
 
+    private static final String TAG = MainActivity.class.getName();
     @Bean
     ExchangeServiceClient serviceClient;
 
-
+    ListView list;
+    boolean isLoading = false;
     private final List<Card> card = new LinkedList<Card>();
-    private ListView list;
     private ListAdapter adapter;
-    private CardsResponse previousResponse;
+    private CardsParams previousResponse;
+    private RelativeLayout footer;
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        CardsParams params = new CardsParams();
-//        params.setLimit(10L);
-        serviceClient.getCards(params, this);
+
+
 //spinner pop while call is being made
     }
 
@@ -66,9 +68,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
-
-        list = (ListView) findViewById(R.id.listView);
-
         View customBar = mInflater.inflate(R.layout.action_bar, null);
         TextView title = (TextView) customBar.findViewById(R.id.app_title);
         ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
@@ -86,15 +85,39 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         mActionBar.setCustomView(customBar);
         mActionBar.setDisplayShowCustomEnabled(true);
 
+
+
+        list = (ListView) findViewById(R.id.listView);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        footer = (RelativeLayout) inflater.inflate(R.layout.footer, null);
+        list.addFooterView(footer);
+
+        previousResponse = new CardsParams();
+        previousResponse.setLimit(10L);
+
+
 //on first load, give empty array, and subsequent loads, use cached data
 //        back ground image
         //add pull to refresh
         this.adapter = new ListAdapter(this, card);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int i) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.i(TAG, totalItemCount + "");
+                int lastIndexInScreen = visibleItemCount + firstVisibleItem;
+                if (lastIndexInScreen >= totalItemCount && !isLoading) {
+                    loadMore();
+                }
+            }
+        });
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,16 +126,28 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         startActivity(iCardInfo);
     }
 
+
+
+
+
+    public void loadMore() {
+
+
+//        this.adapter = new ListAdapter(this, card);
+        Log.i(TAG, "you got hit");
+        serviceClient.getCards(previousResponse, this);
+        isLoading=true;
+        //start spinner
+
+    }
+
     @Override
     public void success(CardsResponse cardsResponse, Response response) {
-
+        //stop spinner
         this.adapter.addAll(cardsResponse.getCards());
-
-        //dismiss spinner
-
         this.previousResponse=cardsResponse;
-//        previousResponse.setStart(cardsResponse.getStart() + cardsResponse.getLimit());
-//        serviceClient.getCards(cardsResponse, this);
+        previousResponse.setStart(previousResponse.getStart() + previousResponse.getLimit());
+        isLoading=false;
 
     }
 
