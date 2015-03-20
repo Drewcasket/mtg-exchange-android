@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -19,14 +21,41 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener{
+import detroitlabs.mtgexchange.service.CardsParams;
+import detroitlabs.mtgexchange.service.CardsResponse;
+import detroitlabs.mtgexchange.service.ExchangeServiceClient;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
-    ListView list;
-    public List<Card> card = new LinkedList<Card>();
+@EActivity
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener, Callback<CardsResponse>{
+
+    @Bean
+    ExchangeServiceClient serviceClient;
+
+
+    private final List<Card> card = new LinkedList<Card>();
+    private ListView list;
+    private ListAdapter adapter;
+    private CardsResponse previousResponse;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CardsParams params = new CardsParams();
+//        params.setLimit(10L);
+        serviceClient.getCards(params, this);
+//spinner pop while call is being made
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,88 +68,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         list = (ListView) findViewById(R.id.listView);
-
-        Card ArchfiendOfDepravity = new Card();
-        ArchfiendOfDepravity.setCardName("Archfiend of Depravity");
-        ArchfiendOfDepravity.setCurrentPrice(.49);
-        ArchfiendOfDepravity.setChangeInPrice(.00);
-//        ArchfiendOfDepravity.setCardID(10L);
-//        ArchfiendOfDepravity.setManaCost("3BB");
-        ArchfiendOfDepravity.setColors(new ArrayList<String>());
-        ArchfiendOfDepravity.getColors().add("Black");
-        ArchfiendOfDepravity.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391795.jpg");
-
-        Card AtarkaWorldRender = new Card();
-        AtarkaWorldRender.setCardName("Atarka, World Render");
-        AtarkaWorldRender.setCurrentPrice(.55);
-        AtarkaWorldRender.setChangeInPrice(.06);
-//        AtarkaWorldRender.setCardID(11L);
-//        AtarkaWorldRender.setManaCost("3RR");
-        AtarkaWorldRender.setColors(new ArrayList<String>());
-        AtarkaWorldRender.getColors().add("Red");
-        AtarkaWorldRender.getColors().add("Green");
-        AtarkaWorldRender.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391796.jpg");
-
-        Card AleshaWhoSmilesAtDeath = new Card();
-        AleshaWhoSmilesAtDeath.setCardName("Alesh, Who Smiles at Death");
-        AleshaWhoSmilesAtDeath.setCurrentPrice(.99);
-        AleshaWhoSmilesAtDeath.setChangeInPrice(-.36);
-//        AleshaWhoSmilesAtDeath.setCardID(12L);
-//        AleshaWhoSmilesAtDeath.setManaCost("3RR");
-        AleshaWhoSmilesAtDeath.setColors(new ArrayList<String>());
-        AleshaWhoSmilesAtDeath.getColors().add("Red");
-        AleshaWhoSmilesAtDeath.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391787.jpg");
-
-        Card WhisperwoodElemental = new Card();
-        WhisperwoodElemental.setCardName("Whisperwood Elemental");
-        WhisperwoodElemental.setCurrentPrice(15.49);
-        WhisperwoodElemental.setChangeInPrice(.49);
-//        WhisperwoodElemental.setCardID(13L);
-//        WhisperwoodElemental.setManaCost("3GG");
-        WhisperwoodElemental.setColors(new ArrayList<String>());
-        WhisperwoodElemental.getColors().add("Green");
-        WhisperwoodElemental.setImageURL("http://www.cardshark.com/images/Magic/Time%20Spiral/116745.jpg");
-
-        Card SoulfireGrandMaster = new Card();
-        SoulfireGrandMaster.setCardName("Soulfire Grand Master");
-        SoulfireGrandMaster.setCurrentPrice(13.79);
-        SoulfireGrandMaster.setChangeInPrice(-.19);
-//        SoulfireGrandMaster.setCardID(14L);
-//        SoulfireGrandMaster.setManaCost("1W");
-        SoulfireGrandMaster.setColors(new ArrayList<String>());
-        SoulfireGrandMaster.getColors().add("White");
-        SoulfireGrandMaster.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391927.jpg");
-
-        Card TorrentElemental = new Card();
-        TorrentElemental.setCardName("Torrent Elemental");
-        TorrentElemental.setCurrentPrice(2.95);
-        TorrentElemental.setChangeInPrice(.65);
-//        TorrentElemental.setCardID(15L);
-//        TorrentElemental.setManaCost("4U");
-        TorrentElemental.setColors(new ArrayList<String>());
-        TorrentElemental.getColors().add("Blue");
-        TorrentElemental.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391945.jpg");
-
-        Card UginTheSpiritDragon = new Card();
-        UginTheSpiritDragon.setCardName("Ugin, the Spirit Dragon");
-        UginTheSpiritDragon.setCurrentPrice(35.05);
-        UginTheSpiritDragon.setChangeInPrice(4.95);
-//        UginTheSpiritDragon.setCardID(16L);
-//        UginTheSpiritDragon.setManaCost("8");
-        UginTheSpiritDragon.setColors(new ArrayList<String>());
-        UginTheSpiritDragon.getColors().add("Artifact");
-        UginTheSpiritDragon.setImageURL("http://www.cardshark.com/images/Magic/Fate%20Reforged/391948.jpg");
-
-
-        for (int x = 1; x <= 10; x++) {
-            card.add(ArchfiendOfDepravity);
-            card.add(AtarkaWorldRender);
-            card.add(AleshaWhoSmilesAtDeath);
-            card.add(WhisperwoodElemental);
-            card.add(SoulfireGrandMaster);
-            card.add(TorrentElemental);
-            card.add(UginTheSpiritDragon);
-        }
 
         View customBar = mInflater.inflate(R.layout.action_bar, null);
         TextView title = (TextView) customBar.findViewById(R.id.app_title);
@@ -141,19 +88,42 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 //on first load, give empty array, and subsequent loads, use cached data
 //        back ground image
-        ListAdapter adapter = new ListAdapter(this, card);
+        //add pull to refresh
+        this.adapter = new ListAdapter(this, card);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent iCardInfo = new Intent(this, CardInfo.class);
         iCardInfo.putExtra("CardObject", card.get(position));
-        // get card id from card object and pass through to next screens webservice call
         startActivity(iCardInfo);
     }
-  }
+
+    @Override
+    public void success(CardsResponse cardsResponse, Response response) {
+
+        this.adapter.addAll(cardsResponse.getCards());
+
+        //dismiss spinner
+
+        this.previousResponse=cardsResponse;
+//        previousResponse.setStart(cardsResponse.getStart() + cardsResponse.getLimit());
+//        serviceClient.getCards(cardsResponse, this);
+
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        //dismiss spinner
+        //show alert popup with error message
+        error.printStackTrace();
+
+    }
+}
 
 class ListAdapter extends ArrayAdapter<Card>
   {
@@ -223,6 +193,7 @@ class ListAdapter extends ArrayAdapter<Card>
             return row;
         }
 
+
         public int getValueChangeColor(double valueChange) {
             return valueChange < 0 ? R.drawable.drawable_value_change_down_background : R.drawable.drawable_value_change_up_background;
         }
@@ -276,6 +247,7 @@ class ListAdapter extends ArrayAdapter<Card>
             }
             return cardBackground;
         }
+
 }
 
 
