@@ -19,13 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,13 +69,16 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         TextView title = (TextView) customBar.findViewById(R.id.app_title);
         ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
 
+        final MainActivity _this = this;
+
         title.setText("MTG Exchange");
         filter.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Filter Button Clicked!",
-                        Toast.LENGTH_LONG).show();
+                Intent iFilter = new Intent(_this, FilterActivity.class);
+                startActivity(iFilter);
             }
         });
 
@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent iCardInfo = new Intent(this, CardInfo.class);
+        Intent iCardInfo = new Intent(this, CardInfoActivity.class);
         iCardInfo.putExtra("CardObject", card.get(position));
         startActivity(iCardInfo);
     }
