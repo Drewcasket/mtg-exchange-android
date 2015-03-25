@@ -31,7 +31,7 @@ import java.net.URL;
 /**
  * Created by Drew on 2/4/15.
  */
-public class CardInfo extends Activity implements View.OnClickListener {
+public class CardInfoActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onStart() {

@@ -6,4 +6,37 @@
     <string name="action_settings">Settings</string>
     <string name="card_name">card_name</string>
     <string name="loading">Loading...</string>
+    <string name="text_search">text search</string>
+    <string name="enter_value">Enter Value</string>
+    <string-array name="values_array">
+        <item>Comparison</item>
+        <item>Over</item>
+        <item>Under</item>
+        <item>Equal</item>
+    </string-array>
+    <string-array name="colors_array">
+        <item>Color</item>
+        <item>Blue</item>
+        <item>Black</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>White</item>
+        <item>Colorless</item>
+    </string-array>
+    <string-array name="rarity_array">
+        <item>Rarity</item>
+        <item>Mythic</item>
+        <item>Rare</item>
+        <item>Uncommon</item>
+        <item>Common</item>
+    </string-array>
+    <string-array name="set_array">
+        <item>Set</item>
+        <item>KTR</item>
+        <item>FTR</item>
+        <item>DOT</item>
+        <item>JIN</item>
+        <item>BOG</item>
+        <item>TER</item>
+    </string-array>
 </resources>
