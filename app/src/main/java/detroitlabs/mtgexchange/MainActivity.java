@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
             @Override
             public void onClick(View view) {
-                Intent iFilter = new Intent(_this, FilterActivity.class);
+                Intent iFilter = new Intent(_this, FilterActivity_.class);
                 startActivity(iFilter);
             }
         });
