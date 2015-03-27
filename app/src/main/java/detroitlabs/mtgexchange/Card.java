@@ -13,6 +13,7 @@ public class Card implements Parcelable {
 
     private String cardName;
     private String setName;
+    private String rarityName;
     private List<String> colors;
     private String imageURL;
     private Double currentPrice;
@@ -35,6 +36,14 @@ public class Card implements Parcelable {
 
     public void setSetName(String setName) {
         this.setName = setName;
+    }
+
+    public String getRarityName() {
+        return rarityName;
+    }
+
+    public void setRarityName(String rarityName) {
+        this.rarityName = setName;
     }
 
     public List<String> getColors() {

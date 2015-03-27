@@ -39,7 +39,6 @@ public class MultiSelectionSpinner extends Spinner implements
     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
         if (mSelection != null && which < mSelection.length) {
             mSelection[which] = isChecked;
-
             simple_adapter.clear();
             simple_adapter.add(buildSelectedItemString());
         } else {
@@ -66,6 +65,7 @@ public class MultiSelectionSpinner extends Spinner implements
         _items = items;
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
+        simple_adapter.add(buildSelectedItemString());
         Arrays.fill(mSelection, false);
     }
 
@@ -185,3 +185,4 @@ public class MultiSelectionSpinner extends Spinner implements
         return sb.toString();
     }
 }
+

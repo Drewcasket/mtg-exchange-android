@@ -5,22 +5,77 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
 
     <detroitlabs.mtgexchange.MultiSelectionSpinner
-        android:id="@+id/mySpinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <Button
-        android:id="@+id/button1"
+        android:id="@+id/color_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mySpinner1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_field"
+        android:hint="Color"
+        android:layout_below="@+id/color_spinner"
+        android:layout_alignRight="@+id/color_spinner"
+        android:layout_alignEnd="@+id/color_spinner" />
+
+
+
+    <detroitlabs.mtgexchange.MultiSelectionSpinner
+        android:id="@+id/set_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/color_spinner"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_field"
+        android:hint="Set"
+        android:layout_below="@+id/set_spinner"
+        android:layout_alignRight="@+id/set_spinner"
+        android:layout_alignEnd="@+id/set_spinner" />
+
+    <detroitlabs.mtgexchange.MultiSelectionSpinner
+        android:id="@+id/rarity_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_spinner"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rarity_field"
+        android:hint="Rarity"
+        android:layout_below="@+id/rarity_spinner"
+        android:layout_alignRight="@+id/rarity_spinner"
+        android:layout_alignEnd="@+id/rarity_spinner" />
+    <Button
+        android:id="@+id/apply_filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/color_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="118dp"
-        android:text="Get Items"
+        android:text="Apply Filters"
+        android:onClick="onClick"
+        />
+
+    <Button
+        android:id="@+id/clear_filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/apply_filters"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Clear Filters"
         android:onClick="onClick"
         />
 </RelativeLayout> 
