@@ -1,63 +1,166 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <EditText
-        android:id="@+id/text_search"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/text_search"/>
+        android:id="@+id/search_bar"
+        android:hint="Search"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"/>
 
-    <Spinner
-        android:id="@+id/color_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <detroitlabs.mtgexchange.MultiSelectionSpinner
+        android:id="@+id/color_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/search_bar"
+        />
 
-    <Spinner
-        android:id="@+id/rarity_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_field"
+        android:hint="Color"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/color_spinner"
+        />
 
-    <Spinner
-        android:id="@+id/set_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+
+    <detroitlabs.mtgexchange.MultiSelectionSpinner
+        android:id="@+id/set_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/color_spinner"
+        android:layout_marginTop="25dp"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_field"
+        android:hint="Set"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/set_spinner"/>
+
+    <detroitlabs.mtgexchange.MultiSelectionSpinner
+        android:id="@+id/rarity_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_spinner"
+        android:layout_marginTop="25dp"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rarity_field"
+        android:hint="Rarity"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/rarity_spinner"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/value_dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:orientation="horizontal"
+        android:id="@+id/price_layout"
+        android:layout_below="@+id/rarity_field"
+        >
 
         <EditText
-            android:id="@+id/value_field"
-            android:layout_width="wrap_content"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/value_dropdown"
-            android:hint="@string/enter_value"/>
+            android:id="@+id/price_bar"
+            android:hint="Price"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"/>
+
+        <detroitlabs.mtgexchange.MultiSelectionSpinner
+            android:id="@+id/price_choice_spinner"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/price_bar"
+            android:layout_gravity="bottom" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/value_change_dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+        android:orientation="horizontal"
+        android:id="@+id/price_change_layout"
+        android:layout_below="@+id/price_layout"
+        >
 
         <EditText
-            android:id="@+id/value_change_field"
-            android:layout_width="wrap_content"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/value_change_dropdown"
-            android:hint="@string/enter_value"/>
+            android:id="@+id/price_change_bar"
+            android:hint="Change in Price"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"/>
+
+        <detroitlabs.mtgexchange.MultiSelectionSpinner
+            android:id="@+id/price_change_choice_spinner"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/price_change_bar"
+            android:layout_gravity="bottom" />
     </LinearLayout>
-</LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/apply_filters"
+        android:layout_below="@+id/color_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:text="Apply Filters"
+        android:onClick="onClick"
+        />
+
+    <Button
+        android:id="@+id/clear_filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/apply_filters"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Clear Filters"
+        android:onClick="onClick"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comparison_field"
+        android:hint="Compare"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/price_layout"
+        android:layout_toRightOf="@+id/apply_filters"
+        android:layout_toEndOf="@+id/apply_filters">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comparison_change_field"
+        android:hint="Compare"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/price_change_layout"
+        android:layout_toRightOf="@+id/apply_filters"
+        android:layout_toEndOf="@+id/apply_filters">
+    </TextView>
+</RelativeLayout> 

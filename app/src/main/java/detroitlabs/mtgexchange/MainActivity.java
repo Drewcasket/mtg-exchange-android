@@ -48,13 +48,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private RelativeLayout footer;
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-//spinner pop while call is being made
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+////spinner pop while call is being made
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +76,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
             @Override
             public void onClick(View view) {
-                Intent iFilter = new Intent(_this, FilterActivity.class);
-                startActivity(iFilter);
+                Intent iFilter = new Intent(_this, FilterActivity_.class);
+                iFilter.putExtra("cardsParams", previousResponse );
+                startActivityForResult(iFilter, 2);
             }
         });
 
@@ -127,11 +127,19 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                this.previousResponse = data.getParcelableExtra("cardsParams");
+                this.adapter.clear();
+                //this.serviceClient.getCards(previousResponse, this);
+            }
+        }
+    }
 
     public void loadMore() {
-
 
 //        this.adapter = new ListAdapter(this, card);
         Log.i(TAG, "you got hit");

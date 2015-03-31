@@ -1,71 +1,130 @@
 package detroitlabs.mtgexchange;
 
-import android.app.Activity;
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- * Created by Drew on 3/24/15.
- */
-public class FilterActivity extends Activity implements AdapterView.OnItemSelectedListener {
+import detroitlabs.mtgexchange.service.CardsParams;
+import detroitlabs.mtgexchange.service.ExchangeServiceClient;
+import detroitlabs.mtgexchange.service.FiltersResponse;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
+@EActivity
+public class FilterActivity extends Activity implements Callback<FiltersResponse>{
 
-        // set "that field" to equal what was chosen
-        Toast.makeText(getApplicationContext(), "Spinner Selected",
-                Toast.LENGTH_SHORT).show();
-    }
+    MultiSelectionSpinner color_spinner;
+    MultiSelectionSpinner set_spinner;
+    MultiSelectionSpinner rarity_spinner;
+    MultiSelectionSpinner price_spinner;
+    MultiSelectionSpinner price_change_spinner;
+    Button applyFilters;
+    Button clearFilters;
 
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
+    private final List<Card> card = new LinkedList<Card>();
 
+    @Bean
+    ExchangeServiceClient serviceClient;
+    private CardsParams cardsParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
-        Spinner value_dropdown = (Spinner) findViewById(R.id.value_dropdown);
-        Spinner value_change_dropdown = (Spinner) findViewById(R.id.value_change_dropdown);
-        Spinner color_dropdown = (Spinner) findViewById(R.id.color_dropdown);
-        Spinner rarity_dropdown = (Spinner) findViewById(R.id.rarity_dropdown);
-        Spinner set_dropdown = (Spinner) findViewById(R.id.set_dropdown);
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View customBar = mInflater.inflate(R.layout.action_bar, null);
+        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+        title.setText("MTG Exchange");
+        filter.setVisibility(View.INVISIBLE);
+        mActionBar.setCustomView(customBar);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
+        this.cardsParams = this.getIntent().getParcelableExtra("cardsParams");
+        applyFilters = (Button) findViewById(R.id.apply_filters) ;
+        clearFilters = (Button) findViewById(R.id.clear_filters);
+        serviceClient.getFilters(this);
+    }
+
+    public void onClick(View v){
+        List<String> colorSelected = color_spinner.getSelectedStrings();
+        List<String> setSelected = set_spinner.getSelectedStrings();
+        List<String> raritySelected = rarity_spinner.getSelectedStrings();
 
 
-        ArrayAdapter<CharSequence> colorAdapter = ArrayAdapter.createFromResource(this,
-                R.array.colors_array, android.R.layout.simple_spinner_item);
-        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        color_dropdown.setAdapter(colorAdapter);
-        color_dropdown.setOnItemSelectedListener(this);
+        switch(v.getId()){
 
-        ArrayAdapter<CharSequence> rarityAdapter = ArrayAdapter.createFromResource(this,
-                R.array.rarity_array, android.R.layout.simple_spinner_item);
-        rarityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rarity_dropdown.setAdapter(rarityAdapter);
-        rarity_dropdown.setOnItemSelectedListener(this);
+            case R.id.apply_filters:
+                cardsParams.setColors(colorSelected);
+//                cardsParams.setSet(setSelected);
+                cardsParams.setStart(0L);
+                Intent iResult = new Intent();
+                iResult.putExtra("cardsParams", cardsParams);
+                this.setResult(RESULT_OK, iResult);
+                this.finish();
+                break;
 
-        ArrayAdapter<CharSequence> setAdapter = ArrayAdapter.createFromResource(this,
-                R.array.set_array, android.R.layout.simple_spinner_item);
-        setAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        set_dropdown.setAdapter(setAdapter);
-        set_dropdown.setOnItemSelectedListener(this);
+            case R.id.clear_filters:
+                clearFilters();
+                //set the parameters back to null
 
-        ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(this,
-                R.array.values_array, android.R.layout.simple_spinner_item);
-        valueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        value_dropdown.setAdapter(valueAdapter);
-        value_change_dropdown.setAdapter(valueAdapter);
-        value_dropdown.setOnItemSelectedListener(this);
-        value_change_dropdown.setOnItemSelectedListener(this);
+                break;
+        }
+
+
+    }
+
+    @Override
+    public void success(FiltersResponse filtersResponse, Response response) {
+
+        List<String> colors = filtersResponse.getColors();
+        List<String> sets = filtersResponse.getSets();
+        List<String> rarities = filtersResponse.getRarities();
+        color_spinner = (MultiSelectionSpinner) findViewById(R.id.color_spinner);
+        color_spinner.setItems(colors);
+        set_spinner = (MultiSelectionSpinner) findViewById(R.id.set_spinner);
+        set_spinner.setItems(sets);
+        rarity_spinner = (MultiSelectionSpinner) findViewById(R.id.rarity_spinner);
+        rarity_spinner.setItems(rarities);
+        String[] price = { ">", "<" };
+        price_spinner = (MultiSelectionSpinner) findViewById(R.id.price_choice_spinner);
+        price_spinner.setItems(price);
+        String[] price_change = { ">", "<" };
+        price_change_spinner = (MultiSelectionSpinner) findViewById(R.id.price_change_choice_spinner);
+        price_change_spinner.setItems(price_change);
+//      should we also add setting the textviews with the filterresponse? Then in the future
+//        if another element was added to a field, like another color, it would line up correctly on the screen.
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+
+    }
+
+    public void clearFilters() {
+        serviceClient.getFilters(this);
     }
 }
+
