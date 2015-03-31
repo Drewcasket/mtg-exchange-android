@@ -7,63 +7,126 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_bar"
+        android:hint="Search"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"/>
 
     <detroitlabs.mtgexchange.MultiSelectionSpinner
         android:id="@+id/color_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/search_bar"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/color_field"
         android:hint="Color"
+        android:gravity="center_horizontal"
         android:layout_below="@+id/color_spinner"
-        android:layout_alignRight="@+id/color_spinner"
-        android:layout_alignEnd="@+id/color_spinner" />
+        />
 
 
 
     <detroitlabs.mtgexchange.MultiSelectionSpinner
         android:id="@+id/set_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/color_spinner"
+        android:layout_marginTop="25dp"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/set_field"
         android:hint="Set"
-        android:layout_below="@+id/set_spinner"
-        android:layout_alignRight="@+id/set_spinner"
-        android:layout_alignEnd="@+id/set_spinner" />
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/set_spinner"/>
 
     <detroitlabs.mtgexchange.MultiSelectionSpinner
         android:id="@+id/rarity_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/set_spinner"
+        android:layout_marginTop="25dp"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rarity_field"
         android:hint="Rarity"
-        android:layout_below="@+id/rarity_spinner"
-        android:layout_alignRight="@+id/rarity_spinner"
-        android:layout_alignEnd="@+id/rarity_spinner" />
-    <Button
-        android:id="@+id/apply_filters"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/rarity_spinner"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/price_layout"
+        android:layout_below="@+id/rarity_field"
+        >
+
+        <EditText
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_bar"
+            android:hint="Price"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"/>
+
+        <detroitlabs.mtgexchange.MultiSelectionSpinner
+            android:id="@+id/price_choice_spinner"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/price_bar"
+            android:layout_gravity="bottom" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/price_change_layout"
+        android:layout_below="@+id/price_layout"
+        >
+
+        <EditText
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_change_bar"
+            android:hint="Change in Price"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"/>
+
+        <detroitlabs.mtgexchange.MultiSelectionSpinner
+            android:id="@+id/price_change_choice_spinner"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/price_change_bar"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/apply_filters"
         android:layout_below="@+id/color_spinner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="300dp"
         android:text="Apply Filters"
         android:onClick="onClick"
         />
@@ -78,4 +141,26 @@
         android:text="Clear Filters"
         android:onClick="onClick"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comparison_field"
+        android:hint="Compare"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/price_layout"
+        android:layout_toRightOf="@+id/apply_filters"
+        android:layout_toEndOf="@+id/apply_filters">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comparison_change_field"
+        android:hint="Compare"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/price_change_layout"
+        android:layout_toRightOf="@+id/apply_filters"
+        android:layout_toEndOf="@+id/apply_filters">
+    </TextView>
 </RelativeLayout> 

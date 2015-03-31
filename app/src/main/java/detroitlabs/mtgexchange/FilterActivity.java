@@ -1,12 +1,15 @@
 package detroitlabs.mtgexchange;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ public class FilterActivity extends Activity implements Callback<FiltersResponse
     MultiSelectionSpinner color_spinner;
     MultiSelectionSpinner set_spinner;
     MultiSelectionSpinner rarity_spinner;
+    MultiSelectionSpinner price_spinner;
+    MultiSelectionSpinner price_change_spinner;
     Button applyFilters;
     Button clearFilters;
 
@@ -44,6 +49,19 @@ public class FilterActivity extends Activity implements Callback<FiltersResponse
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
+
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View customBar = mInflater.inflate(R.layout.action_bar, null);
+        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+        title.setText("MTG Exchange");
+        filter.setVisibility(View.INVISIBLE);
+        mActionBar.setCustomView(customBar);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
         this.cardsParams = this.getIntent().getParcelableExtra("cardsParams");
         applyFilters = (Button) findViewById(R.id.apply_filters) ;
         clearFilters = (Button) findViewById(R.id.clear_filters);
@@ -90,6 +108,14 @@ public class FilterActivity extends Activity implements Callback<FiltersResponse
         set_spinner.setItems(sets);
         rarity_spinner = (MultiSelectionSpinner) findViewById(R.id.rarity_spinner);
         rarity_spinner.setItems(rarities);
+        String[] price = { ">", "<" };
+        price_spinner = (MultiSelectionSpinner) findViewById(R.id.price_choice_spinner);
+        price_spinner.setItems(price);
+        String[] price_change = { ">", "<" };
+        price_change_spinner = (MultiSelectionSpinner) findViewById(R.id.price_change_choice_spinner);
+        price_change_spinner.setItems(price_change);
+//      should we also add setting the textviews with the filterresponse? Then in the future
+//        if another element was added to a field, like another color, it would line up correctly on the screen.
     }
 
     @Override
