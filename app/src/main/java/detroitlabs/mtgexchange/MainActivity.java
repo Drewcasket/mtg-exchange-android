@@ -23,6 +23,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -152,10 +153,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     @Override
     public void success(CardsResponse cardsResponse, Response response) {
         //stop spinner
-        this.adapter.addAll(cardsResponse.getCards());
-        this.previousResponse=cardsResponse;
-        previousResponse.setStart(previousResponse.getStart() + previousResponse.getLimit());
-        isLoading=false;
+
+            this.adapter.addAll(cardsResponse.getCards());
+            this.previousResponse = cardsResponse;
+            previousResponse.setStart(previousResponse.getStart() + previousResponse.getLimit());
+            isLoading = false;
 
     }
 
@@ -216,6 +218,7 @@ class ListAdapter extends ArrayAdapter<Card>
             String sideColor = getSideColor(cardColor);
             int cardBackground = getCardBackground(cardColor);
             double valueChange = getItem(position).getChangeInPrice();
+
             holder.cName.setText(getItem(position).getCardName());
             holder.cValue.setText("$" + (String.valueOf(getItem(position).getCurrentPrice())));
             holder.vChange.setText(String.valueOf(getItem(position).getChangeInPrice()));
@@ -227,10 +230,13 @@ class ListAdapter extends ArrayAdapter<Card>
                 holder.vArrowDown.setVisibility(View.VISIBLE);
                 holder.vArrowUp.setVisibility(View.GONE);
                 holder.vArrowDown.setArrowGreen(false);
-            } else {
+            } else if (valueChange > 0) {
                 holder.vArrowDown.setVisibility(View.GONE);
                 holder.vArrowUp.setVisibility(View.VISIBLE);
                 holder.vArrowDown.setArrowGreen(true);
+            } else if (valueChange == 0) {
+                holder.vArrowDown.setVisibility(View.GONE);
+                holder.vArrowUp.setVisibility(View.GONE);
             }
 
             return row;
