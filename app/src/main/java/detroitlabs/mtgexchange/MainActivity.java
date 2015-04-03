@@ -8,16 +8,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
@@ -49,42 +56,78 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private RelativeLayout footer;
 
 
+
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 //
 ////spinner pop while call is being made
 //    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+
+            case R.id.search:
+                Intent iFilter = new Intent(this, FilterActivity_.class);
+                iFilter.putExtra("cardsParams", previousResponse );
+                startActivityForResult(iFilter, 2);
+                return true;
+
+            case R.id.gainers:
+                Log.i(TAG, "gainers selected");
+                return true;
+
+            case R.id.losers:
+                Log.i(TAG, "losers selected");
+                return true;
+
+            case R.id.watchlist:
+                Log.i(TAG, "watchlist selected");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
-        View customBar = mInflater.inflate(R.layout.action_bar, null);
-        TextView title = (TextView) customBar.findViewById(R.id.app_title);
-        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+//        ActionBar mActionBar = getActionBar();
+//        mActionBar.setDisplayShowHomeEnabled(false);
+//        mActionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater mInflater = LayoutInflater.from(this);
+//        View customBar = mInflater.inflate(R.layout.action_bar, null);
+//        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+//        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
 
         final MainActivity _this = this;
 
-        title.setText("MTG Exchange");
-        filter.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View view) {
-                Intent iFilter = new Intent(_this, FilterActivity_.class);
-                iFilter.putExtra("cardsParams", previousResponse );
-                startActivityForResult(iFilter, 2);
-            }
-        });
-
-        mActionBar.setCustomView(customBar);
-        mActionBar.setDisplayShowCustomEnabled(true);
+//        title.setText("MTG Exchange");
+//        filter.setOnClickListener(new View.OnClickListener() {
+//
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent iFilter = new Intent(_this, FilterActivity_.class);
+//                iFilter.putExtra("cardsParams", previousResponse );
+//                startActivityForResult(iFilter, 2);
+//            }
+//        });
+//
+//        mActionBar.setCustomView(customBar);
+//        mActionBar.setDisplayShowCustomEnabled(true);
 
 
 

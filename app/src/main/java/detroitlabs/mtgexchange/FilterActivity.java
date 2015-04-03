@@ -50,17 +50,17 @@ public class FilterActivity extends Activity implements Callback<FiltersResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
-        View customBar = mInflater.inflate(R.layout.action_bar, null);
-        TextView title = (TextView) customBar.findViewById(R.id.app_title);
-        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
-        title.setText("MTG Exchange");
-        filter.setVisibility(View.INVISIBLE);
-        mActionBar.setCustomView(customBar);
-        mActionBar.setDisplayShowCustomEnabled(true);
+//        ActionBar mActionBar = getActionBar();
+//        mActionBar.setDisplayShowHomeEnabled(false);
+//        mActionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater mInflater = LayoutInflater.from(this);
+//        View customBar = mInflater.inflate(R.layout.action_bar, null);
+//        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+//        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+//        title.setText("MTG Exchange");
+//        filter.setVisibility(View.INVISIBLE);
+//        mActionBar.setCustomView(customBar);
+//        mActionBar.setDisplayShowCustomEnabled(true);
 
         this.cardsParams = this.getIntent().getParcelableExtra("cardsParams");
         applyFilters = (Button) findViewById(R.id.apply_filters) ;

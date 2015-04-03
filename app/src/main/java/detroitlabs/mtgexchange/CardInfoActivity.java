@@ -107,19 +107,19 @@ public class CardInfoActivity extends Activity implements View.OnClickListener {
 //                .execute(CardInfo.getImageURL());
 
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
+//        ActionBar mActionBar = getActionBar();
+//        mActionBar.setDisplayShowHomeEnabled(false);
+//        mActionBar.setDisplayShowTitleEnabled(false);
+//        LayoutInflater mInflater = LayoutInflater.from(this);
 
         final CardInfoActivity _this = this;
 
-        View customBar = mInflater.inflate(R.layout.action_bar, null);
-        TextView title = (TextView) customBar.findViewById(R.id.app_title);
-        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
-        filter.setVisibility(View.INVISIBLE);
-        mActionBar.setCustomView(customBar);
-        mActionBar.setDisplayShowCustomEnabled(true);
+//        View customBar = mInflater.inflate(R.layout.action_bar, null);
+//        TextView title = (TextView) customBar.findViewById(R.id.app_title);
+//        ImageButton filter = (ImageButton) customBar.findViewById(R.id.app_filter);
+//        filter.setVisibility(View.INVISIBLE);
+//        mActionBar.setCustomView(customBar);
+//        mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     public int getValueChangeColor(double valueChange) {
